@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "zipper"
+version = "0.1.0"
+description = ""
+authors = ["Pedro Augusto Barbosa Aparecido <pedr.augustobarbosa.aparecido@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+toml = "^0.10.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
