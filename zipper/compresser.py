@@ -15,10 +15,6 @@ class LZWCompresser:
         _last_value_in_encode_dict: value to save last value of a key on _encode_dict
         _max_of_bytes: max of size that my _encode_dictionary can be has
     """
-<<<<<<< HEAD
-
-=======
->>>>>>> bd3013673fa01f9f4c7ac5bf90c18a3db88f4c94
     def __init__(self):
         self._encode_dict = {}
         self._last_value_in_encode_dict = FileConfiguration.ENCODE_CHARACTER_RANGE
