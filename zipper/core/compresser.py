@@ -4,7 +4,7 @@ import shutil
 from struct import pack
 from pathlib import Path
 
-from configs.file_configs import FileConfiguration
+from zipper.configs.file_configs import FileConfiguration
 
 
 class LZWCompresser:
@@ -46,7 +46,7 @@ class LZWCompresser:
             for line in file:
                 compress_content += line
 
-        destiny_filename = f"{filepath.stem}{FileConfiguration.FILE_EXTENTION}"
+        destiny_filename = f"{filepath.stem}{FileConfiguration.FILE_EXTENSION}"
         destiny = destiny / destiny_filename
 
         compress_content = self._encode(compress_content)
