@@ -21,7 +21,7 @@ ASSETS_FOLDER = os.path.join(
 )
 
 TEMP_FOLDER = os.path.join(
-    ROOT_FOLDER, "temp"
+    ROOT_FOLDER, "../temp"
 )
 
 if not os.path.exists(TEMP_FOLDER):

@@ -1,11 +1,9 @@
-import os
 import sys
 
-from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QApplication
 
-from settings import MINIMUM_SIZE_OF_APPLICATION, ASSETS_FOLDER
-from main_screen import MainScreen
+from zipper.application.settings import MINIMUM_SIZE_OF_APPLICATION
+from zipper.application.screens.main_screen import MainScreen
 
 
 class Application(QMainWindow):

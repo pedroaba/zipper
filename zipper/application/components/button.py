@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QCursor, QFontDatabase
 from PySide6.QtWidgets import QPushButton
 
-from utils import Colors
+from zipper.application.utils.colors import Colors
 
 
 class Button(QPushButton):

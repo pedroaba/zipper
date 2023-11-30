@@ -5,10 +5,10 @@ from typing import Literal
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QFrame, QVBoxLayout, QHBoxLayout, QWidget, QFileDialog, QTextEdit, QSizePolicy
 
-from alert import Alert
-from button import Button
-from settings import TEMP_FOLDER
-from utils import UIUtils
+from zipper.application.components.alert import Alert
+from zipper.application.components.button import Button
+from zipper.application.settings import TEMP_FOLDER
+from zipper.application.utils.ui import UIUtils
 from zipper.core.compresser import LZWCompresser
 
 

@@ -4,8 +4,8 @@ from typing import Literal
 from PySide6.QtGui import QFontDatabase, QIcon
 from PySide6.QtWidgets import QGridLayout, QMessageBox
 
-from settings import ASSETS_FOLDER
-from utils import Colors
+from zipper.application.settings import ASSETS_FOLDER
+from zipper.application.utils.colors import Colors
 
 
 class Alert(QMessageBox):
