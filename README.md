@@ -33,7 +33,6 @@ Para poder executá-lo, precisa apenas ter o **Python 3.11.6** instalado na máq
 #### Outra alternativa
 Também poderá baixar o app diretamente do **GitHub** se preferir clicando [aqui](https://github.com/pedroaba/zipper/releases/download/v1/zipperv1.0.0.zip)
 
-
 ### Utilização do aplicativo
 O aplicativo tem quatro funções, nas quais são:
 
