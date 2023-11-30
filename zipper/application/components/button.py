@@ -65,3 +65,12 @@ class Button(QPushButton):
 
         # setting cursor
         self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+    def setDisabled(self, disable: bool):
+        super(Button, self).setDisabled(disable)
+
+        cursor = Qt.CursorShape.ForbiddenCursor
+        if not disable:
+            cursor = Qt.CursorShape.PointingHandCursor
+
+        self.setCursor(cursor)

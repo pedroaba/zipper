@@ -32,7 +32,7 @@ if __name__ == "__main__":
     app_id = "13.remove_bg_rbg"  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 
-    # application to open as window
+    # application to open as windows
     application = QApplication(sys.argv)
 
     # main screen

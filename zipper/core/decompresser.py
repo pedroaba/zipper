@@ -1,7 +1,7 @@
 from pathlib import Path
 from struct import unpack
 
-from configs.file_configs import FileConfiguration
+from zipper.configs.file_configs import FileConfiguration
 
 
 class LZWDecompresser:
@@ -37,6 +37,10 @@ class LZWDecompresser:
                 compressed_data.append(read_data)
 
         text_decoded = self._decode(compressed_data)
+        with open(destiny, "w") as file:
+            file.write(text_decoded)
+
+        return str(destiny), text_decoded
 
     def _decode(self, text_encoded: list):
         sequence_of_characters = ""

@@ -9,7 +9,9 @@ from zipper.application.components.alert import Alert
 from zipper.application.components.button import Button
 from zipper.application.settings import TEMP_FOLDER
 from zipper.application.utils.ui import UIUtils
+from zipper.application.utils.file import is_our_compression_extention
 from zipper.core.compresser import LZWCompresser
+from zipper.core.decompresser import LZWDecompresser
 
 
 class MainScreen(QFrame):
@@ -43,9 +45,19 @@ class MainScreen(QFrame):
         self._button_container_layout.addWidget(self._import_file_button,
                                                 alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
 
-        self._save_file_button: Button = UIUtils.remove_margins(Button("Compact File"))
-        self._save_file_button.set_button_action(self._compact_file)
-        self._button_container_layout.addWidget(self._save_file_button,
+        self._save_compact_file_button: Button = UIUtils.remove_margins(Button("Compact File & Save"))
+        self._save_compact_file_button.set_button_action(self._compact_file)
+        self._button_container_layout.addWidget(self._save_compact_file_button,
+                                                alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+
+        self._save_decompact_file_button: Button = UIUtils.remove_margins(Button("Decompact File & Save"))
+        self._save_decompact_file_button.set_button_action(self._decompact_file)
+        self._button_container_layout.addWidget(self._save_decompact_file_button,
+                                                alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+
+        self._clear_text_area_button: Button = UIUtils.remove_margins(Button("Clear File View"))
+        self._clear_text_area_button.set_button_action(self._clear_text_area)
+        self._button_container_layout.addWidget(self._clear_text_area_button,
                                                 alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
 
         self._button_container_widget.setLayout(self._button_container_layout)
@@ -54,7 +66,33 @@ class MainScreen(QFrame):
 
         self.setLayout(self.layout)
 
+    def _decompact_file(self):
+        folder = self._get_folder()
+        if folder is None:
+            return
+
+        compresser = LZWDecompresser()
+        destiny, text_on_file = compresser.decompress(self._txt_original_path, folder)
+        self._imported_file_view.setPlainText(text_on_file)
+
+        self._alert_box("Success", f"File has saved on {destiny}")
+
+    def _clear_text_area(self):
+        self._imported_file_view.setPlainText("")
+
+        self._alert_box("Success", "File content view was cleared")
+
     def _compact_file(self):
+        folder = self._get_folder()
+        if folder is None:
+            return
+
+        compresser = LZWCompresser()
+        destiny = compresser.compress(self._txt_original_path, folder)
+
+        self._alert_box("Success", f"File has saved on {destiny}")
+
+    def _get_folder(self) -> str | None:
         if not hasattr(self, "_txt_original_path"):
             self._alert_box("Warning", "No file to save, please import an file")
             return
@@ -76,18 +114,14 @@ class MainScreen(QFrame):
             self._alert_box("Warning", "No folder selected")
             return
 
-        compresser = LZWCompresser()
-
-        destiny = compresser.compress(self._txt_original_path, folder)
-
-        self._alert_box("Success", f"File has saved on {destiny}")
+        return folder
 
     def _import_file(self):
         txt_path, _ = QFileDialog.getOpenFileName(
             self,
             "Upload a text file",
             "filename",
-            "*.txt",
+            "TXT (*.txt *.marcelo)"
         )
 
         if txt_path is None or not txt_path:
@@ -107,11 +141,20 @@ class MainScreen(QFrame):
 
         self._txt_original_path = temp_file
 
-        with open(temp_file, 'r') as file:
-            content = file.read()
-            self._imported_file_view.setPlainText(content)
+        is_marcelo_extention = is_our_compression_extention(temp_file)
+        if not is_marcelo_extention:
+            with open(temp_file, 'r') as file:
+                content = file.read()
+                self._imported_file_view.setPlainText(content)
+        self._toggle_disable_between_compact_and_decompact_button(
+            is_marcelo_extention
+        )
 
         self._alert_box("Success", "File imported with success")
+
+    def _toggle_disable_between_compact_and_decompact_button(self, disabled: bool):
+        self._save_compact_file_button.setDisabled(disabled)
+        self._save_decompact_file_button.setDisabled(not disabled)
 
     def _config_styles(self):
         self.setStyleSheet("""
