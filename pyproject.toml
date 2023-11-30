@@ -9,6 +9,7 @@ readme = "README.md"
 python = ">=3.11,<3.13"
 toml = "^0.10.2"
 pyside6 = "^6.6.0"
+pyinstaller = "^6.2.0"
 
 
 [build-system]
